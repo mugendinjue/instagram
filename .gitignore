@@ -1,0 +1,8 @@
+# contains all the file that you dont want to push to github
+
+.env
+virtual/
+db.sqlite3
+__pycache__
+*.pyc
+.vscode/
