@@ -1,0 +1,42 @@
+{% load registration %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {5 if title %}
+  <title>{{title}}</title>
+  {% else %}
+  <title>Instagram Clone</title>
+  {% endif %}
+
+  {% block styles %}
+
+  {% bootstrap_css %}
+
+  {% endblock %}
+
+</head>
+<body>
+
+  {% block content %}
+
+
+  <div class="jumbotron">
+    <h1 class="text-center">lets go</h1>
+  </div>
+
+  {% endblock %}
+
+
+  {% block scripts %}
+
+  bootstrap_javascript jquery='full'
+
+  {% endblock %}
+  
+</body>
+</html>
