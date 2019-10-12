@@ -2,7 +2,101 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<style>
+.row1,.row2{
+  display: flex;
+}
+</style>
 
-<h2 class="text-center">{{user.username}}</h2>
+<div class="container">
+  <div class="row mb-4 pt-4">
+    <div class="col-sm-4">
+      <img src="{{user.profile.profile_pic.url}}" alt="{{user.profile_pic.url}}" width="150" height="150" class="rounded-circle account-img">
+    </div>
+    <div class="col-sm-8">
+      <section>
+        <div class="row1">
+          <h3 class="text-monospace">{{user.username}}</h3>
+          <a href="#">
+            <button class="btn btn-info ml-4 pl-3" >Edit</button>
+          </a>
+          <a href="#">
+            <button class="btn btn-info ml-4 pl-3"  data-toggle="modal" data-target="#exampleModalCenter" >settings</button>
+          </a>
+        </div>
+        <div class="row2 mt-3">
+          <p class="text-monospace">{{images|length}} posts</p>
+          <p class="text-monospace ml-3">0 followers</p>
+          <p class="text-monospace ml-3">0 following</p>
+        </div>
+        <div class="row3 mt-3">
+          <p class="text-monospace font-weight-bold">{{user.username}}</p>
+          <p class="text-monospace">{{user.profile.bio}}</p>
+        </div>
+      </section>
+    </div>
+  </div>
+      <div>
+        <ul class="nav" id="my" role="tablist">
+          <li class="nav-item">
+            <a href="#posts" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+              POSTS
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#igtv" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+              IGTV
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#saved" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+              SAVED
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#tagged" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+              TAGGED
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content row col-12" id="myContent">
+            <div class="tab-pane fade show active" id="posts" role="tabpanel">
+              <p>posts</p>
+            </div>
+            <div class="tab-pane fade" id="igtv" role="tabpanel">
+                <p>igtv</p>
+            </div>
+            <div class="tab-pane fade" id="saved" role="tabpanel">
+                <p>saved</p>
+            </div>
+            <div class="tab-pane fade" id="tagged" role="tabpanel">
+                <p>Tagged</p>
+            </div>
+         </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+              <div class="modal-body">
+                  <p class="text-monospace">
+                    <a href="{% url 'logout' %}" class="tooltip-test" title="Tooltip">Logout</a>
+                  </p>
+                  <p class="text-monospace">
+                    <a href="#" class="tooltip-test" title="Tooltip">Change Password</a>
+                  </p>
+                  <a class="modaloption button" data-dismiss="modal">
+                      Cancel
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
 
 {% endblock %}
