@@ -32,9 +32,9 @@ class Comment(models.Model):
     return "%s comment" % self.image
 
 class Profile(models.Model):
-  profile_pic = models.ImageField(upload_to='profile/',default='profile/default.jpeg')
+  profile_pic = models.ImageField(default='default.jpg',upload_to='profile/')
   bio = models.TextField()
-  user = models.OneToOneField(User,on_delete = models.CASCADE)
+  user = models.OneToOneField(User,on_delete = models.CASCADE,)
 
 
   @receiver(post_save , sender = User)
@@ -49,3 +49,7 @@ class Profile(models.Model):
 
   def __str__(self):
     return "%s profile" % self.user
+
+class Follows(models.Model):
+  follower = models.ForeignKey(Profile, related_name='following',on_delete = models.CASCADE)
+  followee = models.ForeignKey(Profile, related_name='followers',on_delete = models.CASCADE)
