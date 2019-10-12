@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{{block.super}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% if images %}
+        {% for image in images %}
+        <img src="{{image.image.url}}" alt="" class="img-reponsive card-img">
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="col-md-4">
+      <p class="text-center">
+        timeline_view
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
