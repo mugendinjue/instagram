@@ -1,7 +1,28 @@
 {% extends 'auth/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-{{block.super}}
+{{block.super}}  
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <label for="" class="border-bottom mb-4 text-center">Register</label>
+          {{form|crispy}}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit">Register</button>
+        </div>
+      </form>
+      <div class="border-top pt-3">
+        <small class="text-muted">Already have an account ? <a href="{% url 'login' %}" class="ml-2">login</a></small>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
 
 {% endblock %}

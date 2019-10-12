@@ -1,0 +1,17 @@
+{% extends 'auth/base.html' %}
+
+
+{% block content %}
+
+  <di class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <h4 class="text-center">You have been logged out</h4>
+        <small class="text-center"><a href="{% url 'login' %}">Login</a></small>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </di>
+
+{% endblock %}
