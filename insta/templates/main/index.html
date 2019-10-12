@@ -6,19 +6,27 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
       {% if images %}
         {% for image in images %}
-        <img src="{{image.image.url}}" alt="" class="img-reponsive card-img">
+          <div class="row">
+            <div class="card pt-3 mt-4">
+              <div class="card-header">
+              <img src="{{image.image.url}}" alt="" class="card-img">
+            </div>
+            <div class="card-body">
+              <div>
+                <p class="text-muted text-monospace">{{image.caption}}</p>
+              </div>
+            </div>
+            </div>
+          </div>
         {% endfor %}
       {% endif %}
     </div>
-    <div class="col-md-4">
-      <p class="text-center">
-        timeline_view
-      </p>
+    <div class="col-md-3"><h1>hqekgshq</h1></div>
     </div>
   </div>
-</div>
+
 
 {% endblock %}
