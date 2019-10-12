@@ -2,6 +2,8 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
 <style>
 .row1,.row2{
   display: flex;
@@ -11,7 +13,7 @@
 <div class="container">
   <div class="row mb-4 pt-4">
     <div class="col-sm-4">
-      <img src="{{user.profile.profile_pic.url}}" alt="{{user.profile_pic.url}}" width="150" height="150" class="rounded-circle account-img">
+      <img src="{{user.profile.profile_pic.url}}" alt="{{user.profile_pic.url}}" width="200" height="200" class="rounded-circle account-img">
     </div>
     <div class="col-sm-8">
       <section>
@@ -34,45 +36,32 @@
           <p class="text-monospace">{{user.profile.bio}}</p>
         </div>
       </section>
-    </div>
-  </div>
+   
       <div>
         <ul class="nav" id="my" role="tablist">
           <li class="nav-item">
-            <a href="#posts" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+            <a href="#posts" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false"><i class="far fa-calendar-plus"></i>
               POSTS
             </a>
           </li>
           <li class="nav-item">
-            <a href="#igtv" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+            <a href="#igtv" class="nav-link text-monospace font-weight-bold ml-3"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false"><i class="fas fa-tv"></i>
               IGTV
             </a>
           </li>
           <li class="nav-item">
-            <a href="#saved" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+            <a href="#saved" class="nav-link text-monospace font-weight-bold ml-3"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false"><i class="far fa-bookmark"></i>
               SAVED
             </a>
           </li>
           <li class="nav-item">
-            <a href="#tagged" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+            <a href="#tagged" class="nav-link text-monospace font-weight-bold ml-3"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="false"><i class="fas fa-user-tag"></i>
               TAGGED
             </a>
           </li>
         </ul>
-        <div class="tab-content row col-12" id="myContent">
-            <div class="tab-pane fade show active" id="posts" role="tabpanel">
-              <p>posts</p>
-            </div>
-            <div class="tab-pane fade" id="igtv" role="tabpanel">
-                <p>igtv</p>
-            </div>
-            <div class="tab-pane fade" id="saved" role="tabpanel">
-                <p>saved</p>
-            </div>
-            <div class="tab-pane fade" id="tagged" role="tabpanel">
-                <p>Tagged</p>
-            </div>
-         </div>
+      </div>
+
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -92,9 +81,25 @@
           </div>
         </div>
       </div>
-    </div>
+ 
   </div>
 </div>
+</div>
+<div class="container-fluid">
+  <div class="tab-content row col-12" id="myContent">
+    <div class="tab-pane fade show active " id="posts" role="tabpanel">
+      {% include 'auth/posts.html' %}
+    </div>
+    <div class="tab-pane fade" id="igtv" role="tabpanel">
+      {% include 'auth/igtv.html' %}
+    </div>
+    <div class="tab-pane fade" id="saved" role="tabpanel">
+        <p>saved</p>
+    </div>
+    <div class="tab-pane fade" id="tagged" role="tabpanel">
+        <p>Tagged</p>
+    </div>
+ </div>
 </div>
 
 
