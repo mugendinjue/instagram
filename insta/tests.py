@@ -12,6 +12,8 @@ class TestImages(TestCase):
     pass
   def test_update_caption(self):
     pass
+  def test_display_images(self):
+    pass
 
 class TestProfile(TestCase):
   '''
