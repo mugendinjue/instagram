@@ -1,4 +1,4 @@
-{% load registration %}
+{% load bootstrap4 %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  {5 if title %}
+  {% if title %}
   <title>{{title}}</title>
   {% else %}
   <title>Instagram Clone</title>
@@ -22,19 +22,22 @@
 </head>
 <body>
 
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
   {% block content %}
 
-
-  <div class="jumbotron">
-    <h1 class="text-center">lets go</h1>
-  </div>
 
   {% endblock %}
 
 
   {% block scripts %}
 
-  bootstrap_javascript jquery='full'
+  {% bootstrap_javascript jquery='full' %}
 
   {% endblock %}
   
