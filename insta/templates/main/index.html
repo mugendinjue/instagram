@@ -3,6 +3,20 @@
 {% block content %}
 
 {{block.super}}
+<style>
+
+  .head,.flex{
+    display: flex;
+  }
+  .dots{
+    float: right;
+    
+  }
+  a[href]{
+    text-decoration: none;
+    
+  }
+</style>
 
 <div class="container">
   <div class="row">
@@ -11,12 +25,44 @@
         {% for image in images %}
           <div class="row">
             <div class="card pt-3 mt-4">
+              <div class="card-header head">
+                <div>
+                  <img src="{{image.user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{image.user.profile.profile_pic.url}}" width="80" height="80">
+                </div>
+                <div >
+                  <p class="text-monospace ml-3 pt-2"><small><strong>{{image.user.username}}</strong></small></p>
+                  <p class="text-monospace ml-3"><small>{{image.name}}</small></p>
+                </div>
+                <div class="dots">
+                  <a href="#" data-toggle="modal" data-target="#exampleModalCenter">...</a>
+                </div>
+              </div>
               <div class="card-header">
               <img src="{{image.image.url}}" alt="" class="card-img">
             </div>
             <div class="card-body">
+              <div class="flex">
+                <div class="ml-3">
+                  <i class="far fa-heart"></i>
+                </div>
+                <div class="ml-3">
+                  <i class="far fa-comment"></i>
+                </div>
+                <div class="ml-3">
+                  <i class="fas fa-share-alt"></i>
+                </div>
+                <div class="ml-3">
+                  <i class="far fa-bookmark"></i>
+                </div>
+              </div>
               <div>
-                <p class="text-muted text-monospace">{{image.caption}}</p>
+                <p><strong class="ml-3">0 Likes</strong></p>
+              </div>
+              <div>
+                <p class="text-muted text-monospace ml-3"><strong>{{image.name}}</strong> {{image.caption}}</p>
+              </div>
+              <div class="ml-3 ">
+                <a href="#" class="text-muted">View all comments</a>
               </div>
             </div>
             </div>
@@ -24,7 +70,34 @@
         {% endfor %}
       {% endif %}
     </div>
-    <div class="col-md-3"><h1>hqekgshq</h1></div>
+    <div class="col-md-3">
+
+    </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a href="#" style="color: red;">Report inappropriate</a>
+        </div>
+        <div class="modal-header">
+            <a href="#" style="color: red;">unfollow</a>
+        </div>
+        <div class="modal-header">
+            <a href="#">Go to post</a>
+        </div>
+        <div class="modal-header">
+            <a href="#">Share</a>
+        </div>
+        <div class="modal-header">
+            <a href="#">Copy link</a>
+        </div>
+        <div class="modal-header">
+            <a href="#"  data-dismiss="modal">cancel</a>
+          </div>
+      </div>
     </div>
   </div>
 
