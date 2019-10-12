@@ -1,13 +1,14 @@
 
 <nav class="navbar navbar-expand-md navbar-light ">
-  <a href="{% url 'index' %}" class="navbar-brand mr-3">Instagram</a>
+  <a href="{% url 'index' %}" class="navbar-brand mr-3"><i class="fab fa-instagram"></i> | Instagram</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarToggle">
     <div class="navbar-nav mr-auto">
-      
-      
+      <form class="mb-0 h1 ml-auto mr-auto" id="searchform" >
+          <input name="search" autocomplete="off" id="searching" class="form-control d-none d-md-block" placeholder="&#xF002; Search">
+      </form>
     </div>
     <div class="navbar-nav">
       {% if user.is_authenticated %}
