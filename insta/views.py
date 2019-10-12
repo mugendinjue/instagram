@@ -22,7 +22,9 @@ def register(request):
 
 @login_required
 def profile(request):
-  return render(request,'auth/profile.html')
+  current_user = request.user
+  images = Image.objects.filter(user_id = current_user.id).all()
+  return render(request,'auth/profile.html',{"images":images})
 
 @login_required
 def index(request):
