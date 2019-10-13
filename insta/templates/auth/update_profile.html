@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  .col-md-3{
+    border-style: solid;
+    border-color: lightgray;
+    border-right: none;
+    border-radius: 5px;
+    border-width: thin;
+    
+  }
+  .col-md-8{
+    border-style: solid;
+    border-color: lightgrey; 
+    border-radius: 5px;
+    border-width: thin;
+  }
+</style>
+
+<div class="container">
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-md-3">
+      <ul>
+        <li>Edit profile</li>
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <label for="" class="border-bottom mb-4 text-center">Edit profile</label>
+          {{u_form|crispy}}
+          {{p_form|crispy}}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -64,6 +64,12 @@
               <div class="ml-3 ">
                 <a href="#" class="text-muted">View all comments</a>
               </div>
+              
+                {% for comment in image.all_comments %}
+                  <p class="ml-3"><span class="font-weight-bold">{{comment.user.username}}</span> {{comment.comment}}</p>
+
+                {% endfor %}
+              
             </div>
             </div>
           </div>
