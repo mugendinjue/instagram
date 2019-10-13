@@ -20,6 +20,10 @@ class Image(models.Model):
   def all_comments(self):
     return self.comments.all()
 
+  @property
+  def all_likes(self):
+    return self.imagelikes.count()    
+
   def __str__(self):
     return "%s image" % self.name
 
