@@ -9,10 +9,16 @@ class Image(models.Model):
   caption = models.TextField()
   user = models.ForeignKey(User,on_delete = models.CASCADE)
 
+
+
   @classmethod
   def display_images(cls):
     images = cls.objects.all()
     return images
+
+  @property
+  def all_comments(self):
+    return self.comments.all()
 
   def __str__(self):
     return "%s image" % self.name
@@ -20,13 +26,20 @@ class Image(models.Model):
 class Like(models.Model):
   like = models.BooleanField()
   image = models.ForeignKey(Image, on_delete = models.CASCADE)
+  user = models.ForeignKey(User,on_delete = models.CASCADE)
 
   def __str__(self):
     return "%s like" % self.image
 
 class Comment(models.Model):
   comment = models.TextField()
-  image = models.ForeignKey(Image,on_delete = models.CASCADE)
+  image = models.ForeignKey(Image,on_delete = models.CASCADE,related_name='comments')
+  user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='comments')
+
+  @classmethod
+  def display_comments_by_imageId(cls,image_id):
+    comments = cls.objects.filter(image_id = image_id)
+    return comments
 
   def __str__(self):
     return "%s comment" % self.image
@@ -34,7 +47,7 @@ class Comment(models.Model):
 class Profile(models.Model):
   profile_pic = models.ImageField(default='default.jpg',upload_to='profile/')
   bio = models.TextField()
-  user = models.OneToOneField(User,on_delete = models.CASCADE,)
+  user = models.OneToOneField(User,on_delete = models.CASCADE)
 
 
   @receiver(post_save , sender = User)
