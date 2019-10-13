@@ -25,8 +25,8 @@ class Image(models.Model):
 
 class Like(models.Model):
   like = models.BooleanField()
-  image = models.ForeignKey(Image, on_delete = models.CASCADE)
-  user = models.ForeignKey(User,on_delete = models.CASCADE)
+  image = models.ForeignKey(Image, on_delete = models.CASCADE,related_name='imagelikes')
+  user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='userlikes')
 
   def __str__(self):
     return "%s like" % self.image
@@ -59,6 +59,14 @@ class Profile(models.Model):
   def save_profile(sender,instance,**kwargs):
     instance.profile.save()
 
+  @property
+  def all_followers(self):
+    return self.followers.count()   
+
+  @property
+  def all_following(self):
+    return self.following.count()  
+
 
   def __str__(self):
     return "%s profile" % self.user
@@ -66,3 +74,4 @@ class Profile(models.Model):
 class Follows(models.Model):
   follower = models.ForeignKey(Profile, related_name='following',on_delete = models.CASCADE)
   followee = models.ForeignKey(Profile, related_name='followers',on_delete = models.CASCADE)
+
