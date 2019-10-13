@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from . forms import Registration,UpdateUser,UpdateProfile
+from . forms import Registration,UpdateUser,UpdateProfile,CommentForm
 from django.contrib.auth.decorators import login_required
 from .models import Image
+from django.http import JsonResponse
 
 
 def register(request):
@@ -28,10 +29,9 @@ def profile(request):
 
 @login_required
 def index(request):
-  
+  comment_form = CommentForm()
   images = Image.display_images()
-  print(images)
-  return render (request,'main/index.html',{"images":images})
+  return render (request,'main/index.html',{"images":images,"comment_form":comment_form})
 
 @login_required
 def update_profile(request):
@@ -51,3 +51,27 @@ def update_profile(request):
     'p_form':p_form
   }
   return render(request,'auth/update_profile.html',params)
+
+@login_required
+def commenting(request,image_id):
+  c_form = CommentForm()
+  image = Image.objects.filter(pk = image_id).first()
+  if request.method == 'POST':
+    c_form = CommentForm(request.POST)
+    if c_form.is_valid():
+      comment = c_form.save(commit = False)
+      comment.user = request.user
+      comment.image = image
+      comment.save() 
+  return redirect('index')
+
+@login_required
+def likes(request,image_id):
+  image = Image.objects.filter(pk = image_id).first()
+  return JsonResponse(image.all_likes,safe=False)
+
+
+@login_required
+def allcomments(request,image_id):
+  image = Image.objects.filter(pk = image_id).first()
+  return render(request,'main/imagecomments.html',{"image":image})
