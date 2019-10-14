@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{{block.super}}
+
+<style>
+  .side,.flex{
+    display: flex;
+  }
+  .bord{
+    border-style: solid;
+    border-color: lightgray;
+    border-left: none;
+    border-radius: 5px;
+    border-width: thin;
+  }
+
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8  pt-3">
+      <img src="{{image.image.url}}" alt="img" class="img-responsive card-img-top" style="height: 100vh;">
+    </div>
+    <div class="col-md-3 mt-3 pt-3 bord">
+      <div class="side">
+        <div>
+          <img src="{{image.user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{image.user.profile.profile_pic.url}}" width="80" height="80">
+        </div>
+        <div >
+          <p class="text-monospace ml-3 pt-2"><small><strong>{{image.user.username}}</strong></small></p>
+          <p class="text-monospace ml-3"><small>{{image.name}}</small></p>
+        </div> 
+        <hr>
+        <hr>      
+      </div>
+      {% if image.all_comments %}
+        {% for comment in image.all_comments %}
+          <div class="flex">
+            <div>
+              <img src="{{comment.user.profile.profile_pic.url}}" class="rounded-circle border" alt="img" width="50" height="50">
+            </div>
+            <div>
+              <p class="ml-2"><span class="font-weight-bold">{{comment.user.username}}</span> {{comment.comment}}</p>
+            </div>
+          </div>
+          <hr>
+        {% endfor %}
+      {% else %}
+      <h6 class="text-centee">No comments yet...comment bellow</h6>
+      {% endif %}
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+
+{% endblock %}

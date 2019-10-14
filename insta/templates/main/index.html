@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 {{block.super}}
@@ -14,9 +14,24 @@
   }
   a[href]{
     text-decoration: none;
-    
+    color: lightslategray;
+  }
+  .user_stories{
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 5px;
+    border-width: thin;
+  }
+  .jumbotron{
+    background-color: white;
+    text-align: center;
   }
 </style>
+<div class="jumbotron">
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit" data-toggle="modal" data-target="#post">Want to post</button>
+    </div>
+</div>
 
 <div class="container">
   <div class="row">
@@ -34,7 +49,7 @@
                   <p class="text-monospace ml-3"><small>{{image.name}}</small></p>
                 </div>
                 <div class="dots">
-                  <a href="#" data-toggle="modal" data-target="#exampleModalCenter">...</a>
+                  <a href="#" data-toggle="modal" data-target="#{{image.id}}">...</a>
                 </div>
               </div>
               <div class="card-header">
@@ -43,46 +58,73 @@
             <div class="card-body">
               <div class="flex">
                 <div class="ml-3">
-                  <i class="far fa-heart"></i>
+                  <a href="#" id="likes"><i class="far fa-heart"></i></a>
                 </div>
                 <div class="ml-3">
-                  <i class="far fa-comment"></i>
+                  <a href="{% url 'allcomments' image_id=image.id %}"><i class="far fa-comment"></i></a>
                 </div>
                 <div class="ml-3">
-                  <i class="fas fa-share-alt"></i>
+                  <a href="#"><i class="fas fa-share-alt"></i></a>
                 </div>
                 <div class="ml-3">
-                  <i class="far fa-bookmark"></i>
+                  <a href="#"><i class="far fa-bookmark"></i></a>
                 </div>
               </div>
               <div>
-                <p><strong class="ml-3">0 Likes</strong></p>
+                <p><strong class="ml-3">{{image.all_likes}} Likes</strong></p>
               </div>
               <div>
                 <p class="text-muted text-monospace ml-3"><strong>{{image.name}}</strong> {{image.caption}}</p>
               </div>
               <div class="ml-3 ">
-                <a href="#" class="text-muted">View all comments</a>
+                <a href="{% url 'allcomments' image_id=image.id %}" class="text-muted">View all {{image.all_comments|length}} comments</a>
               </div>
               
-                {% for comment in image.all_comments %}
+                {% for comment in image.all_comments|slice:"2" %}
                   <p class="ml-3"><span class="font-weight-bold">{{comment.user.username}}</span> {{comment.comment}}</p>
-
                 {% endfor %}
-              
+                <form action="{% url 'commenting' image_id=image.id %}" method="post">
+                  {% csrf_token %}
+                    <fieldset class="form-group">
+                    {{comment_form|crispy}}
+                    </fieldset>
+                </form>             
             </div>
             </div>
           </div>
         {% endfor %}
       {% endif %}
     </div>
-    <div class="col-md-3">
-
+    <div class="col-md-3 " id="fix">
+      <div class="flex mt-3 pt-3 ml-3 pl-3">
+        <div>
+          <a href="{% url 'profile' %}"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{user.profile.name}}" width="80" height="80"></a>
+        </div>
+        <div>
+          <a href="{% url 'profile' %}"><h2 class="text-monospace ml-3 pt-2"><small><strong>{{user.username}}</strong></small></h2></a>
+        </div>
+      </div>
+      <div class="user_stories pt-3 mt-3 ml-3 pl-3">
+        <p class="text-muted text-center text-monospace">
+          Stories from people you follow will show up here.
+        </p>
+      </div>
+      <div class="user_stories pt-3 mt-3 ml-3 pl-3">
+        {% if user.profile.follows %}
+          {% for followers in user.profile.follows %}
+            <p>{{followers.user.username}}</p>
+          {% endfor %}
+        {% else %}
+        <p class="text-muted text-center text-monospace">
+          Suggestions for you
+        </p>
+        {% endif %}
+      </div>      
     </div>
     </div>
   </div>
-  
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  {% for image in images %}
+  <div class="modal fade" id="{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -92,7 +134,7 @@
             <a href="#" style="color: red;">unfollow</a>
         </div>
         <div class="modal-header">
-            <a href="#">Go to post</a>
+            <a href="{% url 'allcomments' image_id=image.id %}">Go to post</a>
         </div>
         <div class="modal-header">
             <a href="#">Share</a>
@@ -106,6 +148,26 @@
       </div>
     </div>
   </div>
+{% endfor %}
 
+<div class="modal fade" id="post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form action="{% url 'post' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <fieldset class="form-group">
+                {{post|crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <a href="{% url 'post' %}">
+                      <button class="btn btn-outline-info" type="submit">Post</button>
+                    </a>
+                </div>
+            </form>            
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
