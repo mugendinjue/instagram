@@ -46,6 +46,9 @@ As a user of the application you will be able to:
 
 > * Run ```python3.6 manage.py runserver``` and then on your preffered broswser search the url ```http://127.0.0.1:8000/``` 
 
+#### To deploy the project to heroku
+
+> * [deployment-manual](https://github.com/jakhax/deploying-django-to-heroku-manual)
 
 ### Technologies Used
 
