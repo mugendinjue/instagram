@@ -69,8 +69,17 @@ class Profile(models.Model):
 
   @property
   def all_following(self):
-    return self.following.count()  
+    return self.following.count() 
 
+
+  @property
+  def follows(self):
+    return [follow.followee for follow in self.following.all()]
+
+  @classmethod
+  def search_profiles(cls,search_term):
+    profiles = cls.objects.filter(user__username__icontains = search_term).all()
+    return profiles
 
   def __str__(self):
     return "%s profile" % self.user
@@ -78,4 +87,7 @@ class Profile(models.Model):
 class Follows(models.Model):
   follower = models.ForeignKey(Profile, related_name='following',on_delete = models.CASCADE)
   followee = models.ForeignKey(Profile, related_name='followers',on_delete = models.CASCADE)
+
+  def __str__(self):
+    return "%s follower" % self.follower
 
