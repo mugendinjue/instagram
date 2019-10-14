@@ -41,7 +41,9 @@
         {% for comment in image.all_comments %}
           <div class="flex">
             <div>
-              <img src="{{comment.user.profile.profile_pic.url}}" class="rounded-circle border" alt="img" width="50" height="50">
+              <a href="{% url 'others_profile' comment.user.id  %}">
+                <img src="{{comment.user.profile.profile_pic.url}}" class="rounded-circle border" alt="img" width="50" height="50">
+              </a>
             </div>
             <div>
               <p class="ml-2"><span class="font-weight-bold">{{comment.user.username}}</span> {{comment.comment}}</p>
