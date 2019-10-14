@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from . forms import Registration,UpdateUser,UpdateProfile,CommentForm
+from . forms import Registration,UpdateUser,UpdateProfile,CommentForm,postImageForm
 from django.contrib.auth.decorators import login_required
-from .models import Image
+from .models import Image,Profile
 from django.http import JsonResponse
 
 
@@ -30,8 +30,9 @@ def profile(request):
 @login_required
 def index(request):
   comment_form = CommentForm()
+  post_form = postImageForm()
   images = Image.display_images()
-  return render (request,'main/index.html',{"images":images,"comment_form":comment_form})
+  return render (request,'main/index.html',{"images":images,"comment_form":comment_form,"post":post_form})
 
 @login_required
 def update_profile(request):
@@ -75,3 +76,25 @@ def likes(request,image_id):
 def allcomments(request,image_id):
   image = Image.objects.filter(pk = image_id).first()
   return render(request,'main/imagecomments.html',{"image":image})
+
+
+@login_required
+def search(request):
+  if 'search_user' in request.GET and request.GET["search_user"]:
+    name = request.GET.get('search_user')
+    the_users = Profile.search_profiles(name)
+    print(the_users) 
+    return render(request,'main/search.html',{"users":the_users})
+  else:
+    return render(request,'main/search.html')
+
+
+@login_required
+def post(request):
+  if request.method == 'POST':
+    post_form = postImageForm(request.POST,request.FILES) 
+    if post_form.is_valid():
+      the_post = post_form.save(commit = False)
+      the_post.user = request.user
+      the_post.save()
+  return redirect('index')

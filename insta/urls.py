@@ -13,7 +13,9 @@ urlpatterns = [
   path('update/',main_views.update_profile,name='update_profile'),
   re_path(r'^comment/(?P<image_id>\d+)$',main_views.commenting,name='commenting'),
   re_path(r'^likes/(?P<image_id>\d+)$',main_views.likes,name='likes'),
-  re_path(r'^allcomments/(?P<image_id>\d+)$',main_views.allcomments,name='allcomments')
+  re_path(r'^allcomments/(?P<image_id>\d+)$',main_views.allcomments,name='allcomments'),
+  re_path(r'^search/$',main_views.search,name='search'),
+  path('post/',main_views.post,name='post'),
 ]
 
 if settings.DEBUG:
