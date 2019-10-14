@@ -4,8 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from . forms import Registration,UpdateUser,UpdateProfile,CommentForm,postImageForm
 from django.contrib.auth.decorators import login_required
-from .models import Image,Profile
+from .models import Image,Profile,Like
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 
 def register(request):
@@ -68,8 +69,19 @@ def commenting(request,image_id):
 
 @login_required
 def likes(request,image_id):
-  image = Image.objects.filter(pk = image_id).first()
-  return JsonResponse(image.all_likes,safe=False)
+  if request.method == 'GET':
+    image = Image.objects.get(pk = image_id)
+    user = request.user
+    check_user = Like.objects.filter(user = user,image = image).first()
+    if check_user == None:
+      image = Image.objects.get(pk = image_id)
+      like = Like(like = True,image = image,user = user)
+      like.save()
+      return JsonResponse({'success':True,"img":image_id,"status":True})
+    else:
+      check_user.delete()
+      return JsonResponse({'success':True,"img":image_id,"status":False})
+ 
 
 
 @login_required
@@ -98,3 +110,11 @@ def post(request):
       the_post.user = request.user
       the_post.save()
   return redirect('index')
+
+@login_required
+def others_profile(request,pk):
+  user = User.objects.get(pk = pk)
+  images = Image.objects.filter(user = user)
+
+  return render(request,'main/othersprofile.html',{"user":user,"images":images})
+
