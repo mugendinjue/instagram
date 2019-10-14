@@ -17,7 +17,10 @@ def register(request):
       form.save()
       email = form.cleaned_data['email']
       username = form.cleaned_data.get('username')
-      send_welcome_email(username,email)
+      try:
+        send_welcome_email(username,email)
+      except error:
+        print('error')
       messages.success(request,f'Account for {username} created,tou can now login')
       return redirect('login')
   else:
