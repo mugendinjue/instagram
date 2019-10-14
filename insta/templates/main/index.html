@@ -26,6 +26,14 @@
     background-color: white;
     text-align: center;
   }
+  #md{
+    float: right;
+    color: red;
+  }
+  #fix{
+    position: sticky;
+    top: 0;
+  }
 </style>
 <div class="jumbotron">
     <div class="form-group">
@@ -38,15 +46,19 @@
     <div class="col-md-9">
       {% if images %}
         {% for image in images %}
-          <div class="row">
+          <div class="row post{{image.pk}}">
             <div class="card pt-3 mt-4">
               <div class="card-header head">
                 <div>
-                  <img src="{{image.user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{image.user.profile.profile_pic.url}}" width="80" height="80">
+                  <a href="{% url 'others_profile' image.user.id %}">
+                    <img src="{{image.user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{image.user.profile.profile_pic.url}}" width="80" height="80">
+                  </a>
                 </div>
                 <div >
-                  <p class="text-monospace ml-3 pt-2"><small><strong>{{image.user.username}}</strong></small></p>
-                  <p class="text-monospace ml-3"><small>{{image.name}}</small></p>
+                  <a href="{% url 'others_profile' image.user.id %}">
+                    <p class="text-monospace ml-3 pt-2"><small><strong>{{image.user.username}}</strong></small></p>
+                    <p class="text-monospace ml-3"><small>{{image.name}}</small></p>
+                  </a>
                 </div>
                 <div class="dots">
                   <a href="#" data-toggle="modal" data-target="#{{image.id}}">...</a>
@@ -58,7 +70,10 @@
             <div class="card-body">
               <div class="flex">
                 <div class="ml-3">
-                  <a href="#" id="likes"><i class="far fa-heart"></i></a>
+                  <i class="far fa-heart like_u">
+                      <input type="hidden" class="post_id" value="{{image.pk}}">
+                  </i>
+                  
                 </div>
                 <div class="ml-3">
                   <a href="{% url 'allcomments' image_id=image.id %}"><i class="far fa-comment"></i></a>
@@ -71,7 +86,8 @@
                 </div>
               </div>
               <div>
-                <p><strong class="ml-3">{{image.all_likes}} Likes</strong></p>
+                <p><strong class="ml-3 image_likes">{{image.all_likes}} </strong> 
+                  <strong>Likes</strong> </p>
               </div>
               <div>
                 <p class="text-muted text-monospace ml-3"><strong>{{image.name}}</strong> {{image.caption}}</p>
@@ -163,6 +179,9 @@
                     <a href="{% url 'post' %}">
                       <button class="btn btn-outline-info" type="submit">Post</button>
                     </a>
+                </div>
+                <div class="modal-header " id="md" >
+                  <a href="#"  data-dismiss="modal">cancel</a>
                 </div>
             </form>            
         </div>
