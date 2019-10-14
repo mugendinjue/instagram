@@ -30,16 +30,12 @@
     float: right;
     color: red;
   }
-  #fix{
-    position: sticky;
-    top: 0;
+  .dots{
+    padding-left: 600px;
+    padding-top: 20px;
   }
 </style>
-<div class="jumbotron">
-    <div class="form-group">
-        <button class="btn btn-outline-info" type="submit" data-toggle="modal" data-target="#post">Want to post</button>
-    </div>
-</div>
+
 
 <div class="container">
   <div class="row">
@@ -61,7 +57,7 @@
                   </a>
                 </div>
                 <div class="dots">
-                  <a href="#" data-toggle="modal" data-target="#{{image.id}}">...</a>
+                  <a href="#" data-toggle="modal" data-target="#{{image.id}}"><i class="fas fa-ellipsis-h"></i></a>
                 </div>
               </div>
               <div class="card-header">
@@ -69,11 +65,11 @@
             </div>
             <div class="card-body">
               <div class="flex">
+              
                 <div class="ml-3">
-                  <i class="far fa-heart like_u">
+                  <i class="fas fa-heart like_u">
                       <input type="hidden" class="post_id" value="{{image.pk}}">
                   </i>
-                  
                 </div>
                 <div class="ml-3">
                   <a href="{% url 'allcomments' image_id=image.id %}"><i class="far fa-comment"></i></a>
@@ -95,7 +91,6 @@
               <div class="ml-3 ">
                 <a href="{% url 'allcomments' image_id=image.id %}" class="text-muted">View all {{image.all_comments|length}} comments</a>
               </div>
-              
                 {% for comment in image.all_comments|slice:"2" %}
                   <p class="ml-3"><span class="font-weight-bold">{{comment.user.username}}</span> {{comment.comment}}</p>
                 {% endfor %}
@@ -126,9 +121,16 @@
         </p>
       </div>
       <div class="user_stories pt-3 mt-3 ml-3 pl-3">
-        {% if user.profile.follows %}
-          {% for followers in user.profile.follows %}
-            <p>{{followers.user.username}}</p>
+        {% if all %}
+          {% for us in all %}
+          <div class="flex mt-3 pt-3 ml-3 pl-3">
+            <div>
+              <a href="{% url 'others_profile' us.id  %}"><img src="{{us.profile.profile_pic.url}}" class="rounded-circle border" alt="{{us.profile.name}}" width="30" height="30"></a>
+            </div>
+            <div>
+              <a href="{% url 'others_profile' us.id   %}"><p class="text-monospace ml-3 pt-2"><small><strong>{{us.username}}</strong></small></p></a>
+            </div>
+          </div>
           {% endfor %}
         {% else %}
         <p class="text-muted text-center text-monospace">

@@ -1,6 +1,62 @@
-{% load bootstrap4 %}
 
-{% if user %}
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<style>
+  .flex{
+    display: flex;
+  }
+  .search{
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 5px;
+    border-width: thin;
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 search">
 
 
-{% endif %}
+        {% if users %}
+        <h6 class="text-center text-monospace">
+          Profiles found
+        </h6>
+        {% for user in users %}
+      <div class="flex">
+          <div>
+            <a href="{% url 'others_profile' user.user.id  %}">
+              <img src="{{user.user.profile.profile_pic.url}}" class="rounded-circle border" alt="img" width="50" height="50">
+            </a>
+          </div>
+          <div>
+            <p class="ml-2"><span class="font-weight-bold">{{user.user.username}}</span></p>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if images %}
+          <h6 class="text-center text-monospace">
+            posts found
+          </h6>
+        {% for image in images %}
+          <p>
+            <a href="{% url 'allcomments' image_id=image.id %}" class="text-muted text-center">{{image.name}} </a>
+          </p>
+        {% endfor %}
+
+        {% endif %}
+
+
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+
+
+{% endblock %}

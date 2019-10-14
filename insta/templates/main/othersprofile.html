@@ -18,12 +18,6 @@
       <section>
         <div class="row1">
           <h3 class="text-monospace">{{user.username}}</h3>
-          <a href="{% url 'update_profile' %}">
-            <button class="btn btn-info ml-4 pl-3" >Edit</button>
-          </a>
-          <a href="#">
-            <button class="btn btn-info ml-4 pl-3"  data-toggle="modal" data-target="#exampleModalCenter" >settings</button>
-          </a>
         </div>
         <div class="row2 mt-3">
           <p class="text-monospace">{{images|length}} posts</p>

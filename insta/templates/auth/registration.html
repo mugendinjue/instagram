@@ -1,12 +1,22 @@
 {% extends 'auth/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-{{block.super}}  
+{{block.super}}
+
+<style>
+  .border{
+    border-style: solid;
+    border-color: lightgray;
+    border-left: none;
+    border-radius: 5px;
+    border-width: thin;
+  }
+</style>
 
 <div class="container">
   <div class="row">
     <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <div class="col-md-4 border">
       <form action="" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">

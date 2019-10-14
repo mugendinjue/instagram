@@ -1,12 +1,32 @@
 {% extends 'auth/base.html' %}
 {% load crispy_forms_tags %} 
+{% load static %}
 {% block content %}
 {{block.super}}
 
+<style>
+  .dark{
+    display: none;
+  }
+  #flex{
+   display: flex; 
+  }
+  .bord{
+    border-style: solid;
+    border-color: lightgray;
+    border-left: none;
+    border-radius: 5px;
+    border-width: thin;
+  }
+</style>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <div class="col-md-5">
+      <img src="{% static 'img/insta6.png' %}" class="light" alt="img">
+      <img src="{% static 'img/insta3.png' %}" class="dark" alt="img">
+    </div>
+    <div class="col-md-4 pt-3 mt-3 bord">
       <form action="" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
@@ -20,8 +40,12 @@
       <div class="border-top pt-3">
         <small class="text-muted">Need an account ? <a href="{% url 'register' %}" class="ml-2">Register</a></small>
       </div>
+      <div id="flex" class="pl-2 pt-3 mt-3">
+        <img src="{% static 'img/insta1.png' %}" alt="" height="50" width="180" >
+        <img src="{% static 'img/insta2.png' %}" alt=""  height="50">
+      </div>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-3"></div>
   </div>
 </div>
 

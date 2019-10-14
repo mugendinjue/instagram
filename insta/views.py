@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Image,Profile,Like
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from .email import send_welcome_email
 
 
 def register(request):
@@ -14,7 +15,9 @@ def register(request):
     form = Registration(request.POST)
     if form.is_valid():
       form.save()
+      email = form.cleaned_data['email']
       username = form.cleaned_data.get('username')
+      send_welcome_email(username,email)
       messages.success(request,f'Account for {username} created,tou can now login')
       return redirect('login')
   else:
@@ -33,7 +36,9 @@ def index(request):
   comment_form = CommentForm()
   post_form = postImageForm()
   images = Image.display_images()
-  return render (request,'main/index.html',{"images":images,"comment_form":comment_form,"post":post_form})
+  users = User.objects.all()
+  
+  return render (request,'main/index.html',{"images":images,"comment_form":comment_form,"post":post_form,"all":users})
 
 @login_required
 def update_profile(request):
@@ -95,8 +100,9 @@ def search(request):
   if 'search_user' in request.GET and request.GET["search_user"]:
     name = request.GET.get('search_user')
     the_users = Profile.search_profiles(name)
+    images = Image.search_images(name)
     print(the_users) 
-    return render(request,'main/search.html',{"users":the_users})
+    return render(request,'main/search.html',{"users":the_users,"images":images})
   else:
     return render(request,'main/search.html')
 

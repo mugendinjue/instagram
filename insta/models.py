@@ -22,7 +22,12 @@ class Image(models.Model):
 
   @property
   def all_likes(self):
-    return self.imagelikes.count()    
+    return self.imagelikes.count()
+
+  @classmethod
+  def search_images(cls,search_term):
+    images = cls.objects.filter(name__icontains = search_term).all()
+    return images
 
   def __str__(self):
     return "%s image" % self.name
@@ -75,6 +80,8 @@ class Profile(models.Model):
   @property
   def follows(self):
     return [follow.followee for follow in self.following.all()]
+
+
 
   @classmethod
   def search_profiles(cls,search_term):

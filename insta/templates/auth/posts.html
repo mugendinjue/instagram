@@ -6,6 +6,47 @@
   .desc{
     padding-top: 280px;
   }
+  .card{
+   width:100%;
+   height:100%;
+   float:left;
+   overflow:hidden;
+   position:relative;
+   text-align:center;
+   cursor:default;
+}
+.card .image-overlay{
+   width:100%;
+   height:100%;
+   position:absolute;
+   overflow:hidden;
+   top:0;
+   left:0;
+   opacity:0;
+   background-color:rgba(0,0,0,0.5);
+   -webkit-transition:all .4s ease-in-out;
+   transition:all .4s ease-in-out
+}
+.card img{
+   display:block;
+   position:relative;
+   -webkit-transition:all .4s linear;
+   transition:all .4s linear;
+}
+.card:hover .image-overlay {
+   opacity:1;
+   filter:alpha(opacity=100);
+   }
+.image-overlay a{
+   text-decoration:none;
+   font-size:20px;
+   margin:100px 0 0;
+   display:inline-block;
+   color:#fff;
+   }
+   #flex{
+     display: flex;
+   }
 </style>
 
 
@@ -14,6 +55,10 @@
   {% for image in images %}
     <div class="card">
       <img src="{{image.image.url}}" alt="" class="img-responsive card-img-top">
+      <div class="image-overlay">
+        <a href="" ><i class="fas fa-comments">{{image.all_comments|length}}</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href=""><i class="fas fa-heart">{{image.all_likes}} </i></a>
+    </div>
     </div>
   {% endfor %}
 </div>
@@ -28,6 +73,10 @@
     <div class="desc mt">
     <h4 class="text-center text-monospace font-weight-bold">Start capturing and sharing your moments.</h4>
     <p class="text-monospace text-center">Get the app to share your first photo or video</p>
+    <div id="flex" class="pl-3 ml-3">
+      <img src="{% static 'img/insta1.png' %}" alt="" height="50" width="180" >
+      <img src="{% static 'img/insta2.png' %}" alt=""  height="50">
+    </div>
     </div>
   </div>
 </div>

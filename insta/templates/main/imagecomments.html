@@ -16,6 +16,10 @@
     border-radius: 5px;
     border-width: thin;
   }
+  .side{
+    overflow: auto;
+    height: auto;
+  }
 
 </style>
 
@@ -26,7 +30,7 @@
       <img src="{{image.image.url}}" alt="img" class="img-responsive card-img-top" style="height: 100vh;">
     </div>
     <div class="col-md-3 mt-3 pt-3 bord">
-      <div class="side">
+      <div class="side" >
         <div>
           <img src="{{image.user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{image.user.profile.profile_pic.url}}" width="80" height="80">
         </div>
