@@ -16,6 +16,7 @@ urlpatterns = [
   re_path(r'^allcomments/(?P<image_id>\d+)$',main_views.allcomments,name='allcomments'),
   re_path(r'^search/$',main_views.search,name='search'),
   path('post/',main_views.post,name='post'),
+  re_path(r'^post_profile/(?P<pk>\d+)$',main_views.others_profile,name='others_profile'),
 ]
 
 if settings.DEBUG:
