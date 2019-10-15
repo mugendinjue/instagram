@@ -19,16 +19,7 @@
         <div class="row1">
           <h3 class="text-monospace">{{user.username}}</h3>
         </div>
-        
-        {% if user in c_user.follows %}
-        <a href="{% url 'follow' user_id=user.id %}">
-          <button class="btn btn-info ml-4 pl-3" >Follow</button>
-        </a>
-        {% else %}
-        <a href="{% url 'unfollow' user_id=user.id  %}">
-          <button class="btn btn-info ml-4 pl-3" >Unfollow</button>
-        </a>
-        {% endif %}
+      
         <div class="row2 mt-3">
           <p class="text-monospace">{{images|length}} posts</p>
           <p class="text-monospace ml-3">{{user.profile.all_followers}} followers</p>
