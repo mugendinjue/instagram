@@ -148,3 +148,10 @@ def delete(request,image_id):
     image.delete_post()
   return redirect('profile')
 
+@login_required
+def deleteaccount(request):
+  current_user = request.user
+  account = User.objects.get(pk=current_user.id)
+  account.delete()
+  return redirect('register')
+
