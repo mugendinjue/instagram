@@ -9,7 +9,8 @@ class Image(models.Model):
   caption = models.TextField()
   user = models.ForeignKey(User,on_delete = models.CASCADE)
 
-
+  def save_image(self):
+     self.save()
 
   @classmethod
   def display_images(cls):
