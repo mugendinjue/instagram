@@ -20,6 +20,7 @@ urlpatterns = [
   re_path(r'^follow/(?P<user_id>\d+)$',main_views.follow,name='follow'),
   re_path(r'^unfollow/(?P<user_id>\d+)$',main_views.unfollow,name='unfollow'),
   re_path(r'^delete/(?P<image_id>\d+)$',main_views.delete,name='delete'),
+  re_path(r'^deleteaccount/$',main_views.deleteaccount,name='deleteaccount'),
 
 ]
 
