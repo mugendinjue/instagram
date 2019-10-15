@@ -29,6 +29,9 @@ class Image(models.Model):
     images = cls.objects.filter(name__icontains = search_term).all()
     return images
 
+  def delete_post(self):
+    self.delete()
+
   def __str__(self):
     return "%s image" % self.name
 
@@ -80,6 +83,10 @@ class Profile(models.Model):
   @property
   def follows(self):
     return [follow.followee for follow in self.following.all()]
+
+  @property
+  def following(self):
+    return self.followers.all()
 
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from . forms import Registration,UpdateUser,UpdateProfile,CommentForm,postImageForm
 from django.contrib.auth.decorators import login_required
-from .models import Image,Profile,Like
+from .models import Image,Profile,Like,Follows
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .email import send_welcome_email
@@ -29,7 +29,7 @@ def register(request):
 def profile(request):
   current_user = request.user
   images = Image.objects.filter(user_id = current_user.id).all()
-  return render(request,'auth/profile.html',{"images":images})
+  return render(request,'auth/profile.html',{"images":images,"current_user":current_user})
 
 @login_required
 def index(request):
@@ -121,6 +121,30 @@ def post(request):
 def others_profile(request,pk):
   user = User.objects.get(pk = pk)
   images = Image.objects.filter(user = user)
+  c_user = request.user
+  
+  return render(request,'main/othersprofile.html',{"user":user,"images":images,"c_user":c_user})
 
-  return render(request,'main/othersprofile.html',{"user":user,"images":images})
+@login_required
+def follow(request,user_id):
+  followee = request.user
+  followed = Follows.objects.get(pk=user_id)
+  follow_data = Follows(follower = followee.profile,followee = followed.profile)
+  follow_data.save()
+  return redirect('others_profile')
+
+@login_required
+def unfollow(request,user_id):
+  followee = request.user
+  follower = Follows.objects.get(pk=user_id)
+  follow_data = Follows.objects.filter(follower = follower,followee = followee).first()
+  follow_data.delete()
+  return redirect('others_profile')
+
+@login_required
+def delete(request,image_id):
+  image = Image.objects.get(pk=image_id)
+  if image:
+    image.delete_post()
+  return redirect('profile')
 

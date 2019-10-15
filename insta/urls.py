@@ -17,6 +17,10 @@ urlpatterns = [
   re_path(r'^search/$',main_views.search,name='search'),
   path('post/',main_views.post,name='post'),
   re_path(r'^post_profile/(?P<pk>\d+)$',main_views.others_profile,name='others_profile'),
+  re_path(r'^follow/(?P<user_id>\d+)$',main_views.follow,name='follow'),
+  re_path(r'^unfollow/(?P<user_id>\d+)$',main_views.unfollow,name='unfollow'),
+  re_path(r'^delete/(?P<image_id>\d+)$',main_views.delete,name='delete'),
+
 ]
 
 if settings.DEBUG:

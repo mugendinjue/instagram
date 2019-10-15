@@ -58,27 +58,7 @@
       <div class="image-overlay">
         <a href="" ><i class="fas fa-comments">{{image.all_comments|length}}</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
         <a href=""><i class="fas fa-heart">{{image.all_likes}} </i></a>
-        {% if user.profile == current_user.profile %}
-        <i class="fas fa-trash" style="color: white;" data-toggle="modal" data-target="#delete"></i>
-        {% endif %}
     </div>
-    </div>
-
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-            <div class="modal-body">
-                <p class="text-monospace">
-                  <a href="{% url 'delete' image_id=image.id %}" class="tooltip-test" title="Tooltip">Delete</a>
-                </p>
-                <a class="modaloption button" data-dismiss="modal">
-                    Cancel
-                </a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   {% endfor %}
 </div>
