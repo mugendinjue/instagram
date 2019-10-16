@@ -32,7 +32,12 @@
       <ul class="nav" id="my" role="tablist">
       <li>
         <a href="#edit_profile" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="">
-            Edit profile
+          Edit profile
+        </a>
+      </li>
+      <li>
+        <a href="#deleteprofile" class="nav-link text-monospace font-weight-bold"data-toggle="tab" role="tab" aria-controls="posts" aria-selected="">
+          Delete Account
         </a>
       </li>
       </ul>
@@ -65,6 +70,16 @@
                       </form>  
                   </div>
                  </div>  
+          </div>
+         </div>
+
+         <div class="tab-content" id="myContent">
+          <div class="tab-pane fade show active " id="deleteprofile" role="tabpanel">
+              <div class="tab-content" id="myContent">
+                <div class="tab-pane fade show active " id="deleteprofile" role="tabpanel">
+                  {% include 'auth/passwordreset.html' %}
+                </div>
+                </div>  
           </div>
          </div>
     </div>

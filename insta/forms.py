@@ -38,3 +38,4 @@ class postImageForm(forms.ModelForm):
     fields = ['image','name','caption']
 
 
+

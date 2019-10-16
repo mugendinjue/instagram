@@ -18,7 +18,7 @@ def register(request):
       email = form.cleaned_data['email']
       username = form.cleaned_data.get('username')
 
-      messages.success(request,f'Account for {username} created,tou can now login')
+      messages.success(request,f'Account for {username} created,you can now login')
       return redirect('login')
   else:
     form = Registration()
@@ -29,6 +29,7 @@ def register(request):
 def profile(request):
   current_user = request.user
   images = Image.objects.filter(user_id = current_user.id).all()
+  
   return render(request,'auth/profile.html',{"images":images,"current_user":current_user})
 
 @login_required
@@ -148,8 +149,12 @@ def delete(request,image_id):
     image.delete_post()
   return redirect('profile')
 
+
+
+
 @login_required
 def deleteaccount(request):
+  
   current_user = request.user
   account = User.objects.get(pk=current_user.id)
   account.delete()

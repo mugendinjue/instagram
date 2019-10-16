@@ -12,6 +12,9 @@
     float: right;
     
   }
+  #text{
+    text-align: center;
+  }
   a[href]{
     text-decoration: none;
     color: lightslategray;
@@ -88,9 +91,11 @@
               <div>
                 <p class="text-muted text-monospace ml-3"><strong>{{image.name}}</strong> {{image.caption}}</p>
               </div>
+              {% if image.all_comments.count > 2 %}
               <div class="ml-3 ">
                 <a href="{% url 'allcomments' image_id=image.id %}" class="text-muted">View all {{image.all_comments|length}} comments</a>
               </div>
+              {% endif %}
                 {% for comment in image.all_comments|slice:"2" %}
                   <p class="ml-3"><span class="font-weight-bold">{{comment.user.username}}</span> {{comment.comment}}</p>
                 {% endfor %}
@@ -144,7 +149,7 @@
   {% for image in images %}
   <div class="modal fade" id="{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content" id="text">
         <div class="modal-header">
           <a href="#" style="color: red;">Report inappropriate</a>
         </div>
