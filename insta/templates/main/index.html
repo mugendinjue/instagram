@@ -37,6 +37,9 @@
     padding-left: 600px;
     padding-top: 20px;
   }
+  #fix{
+    position: sticky;
+  }
 </style>
 
 
@@ -111,7 +114,7 @@
         {% endfor %}
       {% endif %}
     </div>
-    <div class="col-md-3 " id="fix">
+    <div class="col-md-3" id="fix">
       <div class="flex mt-3 pt-3 ml-3 pl-3">
         <div>
           <a href="{% url 'profile' %}"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle border" alt="{{user.profile.name}}" width="80" height="80"></a>
