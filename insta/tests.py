@@ -2,6 +2,7 @@ from django.test import TestCase
 from . models import Image,Comment
 from django.contrib.auth.models import User
 
+
 class TestImages(TestCase):
   '''
   Class where we write our image models tests
